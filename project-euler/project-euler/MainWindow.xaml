@@ -13,8 +13,10 @@
             <ComboBoxItem Content="[3] Largest prime factor"/>
             <ComboBoxItem Content="[4] Largest palindrome product"/>
             <ComboBoxItem Content="[5] Smallest multiple"/>
-            <ComboBoxItem/>
-            <ComboBoxItem/>
+            <ComboBoxItem Content="[6] Sum Square Difference"/>
+            <ComboBoxItem Content="[7] 10001st prime"/>
+            <ComboBoxItem Content="[8] Largest product in a series"/>
+            <ComboBoxItem Content="[9] Special Pythagorean triplet"/>
         </ComboBox>
         <Button x:Name="btnRunSolution" Content="Run" HorizontalAlignment="Left" Margin="350,14,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnRunSolution_Click"/>
         <TextBox x:Name="txtOutputDisplay" HorizontalAlignment="Left" Height="400" Margin="0,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="967" VerticalScrollBarVisibility="Visible"/>
