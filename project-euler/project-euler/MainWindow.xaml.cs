@@ -11,6 +11,7 @@ namespace project_euler
         public MainWindow()
         {
             InitializeComponent();
+            comboSolutionSelection.SelectedIndex = 0;
         }
 
         Functions functions = new Functions();

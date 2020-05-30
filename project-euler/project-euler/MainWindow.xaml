@@ -5,9 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:project_euler"
         mc:Ignorable="d"
-        Title="project-euler [@xander__j]" Height="525.185" Width="984.746" Background="#FF2C2C2C">
+        Title="project-euler [@xander__j]"
+        MinHeight="300"
+        MinWidth="725"
+        Height="600"
+        Width="725"
+        Background="#FF2C2C2C">
     <Grid>
-        <ComboBox x:Name="comboSolutionSelection" HorizontalAlignment="Left" Margin="69,14,0,0" VerticalAlignment="Top" Width="276">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="90"/>
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            x:Name="label"
+            Content="Solution"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Margin="10,10,10,10"
+            Foreground="White"/>
+        <ComboBox
+            Grid.Row="0"
+            Grid.Column="1"
+            x:Name="comboSolutionSelection"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Margin="10,10,10,10">
             <ComboBoxItem Content="[1] Multiples of 3 and 5"/>
             <ComboBoxItem Content="[2] Fibonacci numbers" Cursor="None"/>
             <ComboBoxItem Content="[3] Largest prime factor"/>
@@ -18,9 +47,24 @@
             <ComboBoxItem Content="[8] Largest product in a series"/>
             <ComboBoxItem Content="[9] Special Pythagorean triplet"/>
         </ComboBox>
-        <Button x:Name="btnRunSolution" Content="Run" HorizontalAlignment="Left" Margin="350,14,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="btnRunSolution_Click"/>
-        <TextBox x:Name="txtOutputDisplay" HorizontalAlignment="Left" Height="400" Margin="0,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="967" VerticalScrollBarVisibility="Visible"/>
-        <Label x:Name="label" Content="Solution" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Foreground="White"/>
-
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            x:Name="btnRunSolution"
+            Content="Run"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Margin="10,10,10,10"
+            Click="btnRunSolution_Click"/>
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            x:Name="txtOutputDisplay"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Margin="10,10,10,10"
+            TextWrapping="Wrap"
+            VerticalScrollBarVisibility="Visible"/>
     </Grid>
 </Window>
