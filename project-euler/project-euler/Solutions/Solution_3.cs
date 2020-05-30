@@ -2,13 +2,18 @@
 
 namespace project_euler.Solutions
 {
-    class Solution_3
+    class Solution_3 : Solution
     {
-        /* Problem Definition
-         * The prime factors of 13195 are 5, 7, 13 and 29.
-         * What is the largest prime factor of the number 600851475143 ? */
+        public override string ProblemDefinition =>
+            "The prime factors of 13195 are 5, 7, 13 and 29.\r\n" +
+            "What is the largest prime factor of the number 600851475143?";
 
-        public long largestPrime(long valToInspect)
+        public override string Answer =>
+            $"Largest prime of { valToInspect } = { largestPrime(valToInspect) }";
+
+        private long valToInspect = 600851475143;
+
+        private long largestPrime(long valToInspect)
         {
             Functions f = new Functions();
             long largestPrime = -1;

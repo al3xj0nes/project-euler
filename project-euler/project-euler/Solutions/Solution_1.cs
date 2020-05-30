@@ -1,12 +1,16 @@
 ﻿namespace project_euler.Solutions
 {
-    public class Solution_1
+    public class Solution_1 : Solution
     {
-        /* Problem Definition
-         * If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.
-         * The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000. */
+        public override string ProblemDefinition =>
+            "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.\r\n" +
+            "The sum of these multiples is 23.\r\n" +
+            "Find the sum of all the multiples of 3 or 5 below 1000.";
 
-        public int totalSum()
+        public override string Answer =>
+            $"Total Sum = { totalSum() }";
+
+        private int totalSum()
         {
             int totalSum = 0;
             for (int index = 0; index < 1000; index++)

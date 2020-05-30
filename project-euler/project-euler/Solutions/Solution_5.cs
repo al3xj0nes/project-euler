@@ -1,12 +1,15 @@
 ﻿namespace project_euler.Solutions
 {
-    public class Solution_5
+    public class Solution_5 : Solution
     {
-        /* Problem Definition
-         * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
-         * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20 ? */
+        public override string ProblemDefinition =>
+            "2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.\r\n" +
+            "What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20 ?";
 
-        public int valueToInspect()
+        public override string Answer =>
+            $"The smallest value divisible by 1 through 20 = {valueToInspect()}";
+
+        private int valueToInspect()
         {
             int valueToInspect = 1;
             bool smallestValueFound = false;

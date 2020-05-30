@@ -1,14 +1,17 @@
 ﻿namespace project_euler.Solutions
 {
-    class Solution_4
+    class Solution_4 : Solution
     {
-        /* Problem Definition
-         * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2 - digit numbers is 9009 = 91 × 99.
-         * Find the largest palindrome made from the product of two 3 - digit numbers. */
+        public override string ProblemDefinition =>
+            "A palindromic number reads the same both ways. The largest palindrome made from the product of two 2 - digit numbers is 9009 = 91 × 99.\r\n" +
+            "Find the largest palindrome made from the product of two 3 - digit numbers.";
+
+        public override string Answer =>
+            $"Largest palindrome = {largestPalindrome()}";
 
         // The palindrome lives between 100*100=10,000 and 999*999=998001 but can only be made using two 2-digit numbers multiplied.
 
-        public int largestPalindrome()
+        private int largestPalindrome()
         {
             string strIndex = "";
             bool palindromeFound = false;
