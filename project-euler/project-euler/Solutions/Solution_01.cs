@@ -1,6 +1,6 @@
 ﻿namespace project_euler.Solutions
 {
-    public class Solution_1 : Solution
+    public class Solution_01 : Solution
     {
         public override string ProblemDefinition =>
             "If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9.\r\n" +

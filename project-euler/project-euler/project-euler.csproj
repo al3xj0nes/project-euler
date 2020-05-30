@@ -62,15 +62,18 @@
     <Compile Include="Helper\Command.cs" />
     <Compile Include="Helper\ObservableProperty.cs" />
     <Compile Include="Solutions\Solution.cs" />
-    <Compile Include="Solutions\Solution_1.cs" />
-    <Compile Include="Solutions\Solution_2.cs" />
-    <Compile Include="Solutions\Solution_3.cs" />
-    <Compile Include="Solutions\Solution_4.cs" />
-    <Compile Include="Solutions\Solution_5.cs" />
-    <Compile Include="Solutions\Solution_6.cs" />
-    <Compile Include="Solutions\Solution_7.cs" />
-    <Compile Include="Solutions\Solution_8.cs" />
-    <Compile Include="Solutions\Solution_9.cs" />
+    <Compile Include="Solutions\Solution_01.cs" />
+    <Compile Include="Solutions\Solution_02.cs" />
+    <Compile Include="Solutions\Solution_03.cs" />
+    <Compile Include="Solutions\Solution_04.cs" />
+    <Compile Include="Solutions\Solution_05.cs" />
+    <Compile Include="Solutions\Solution_06.cs" />
+    <Compile Include="Solutions\Solution_07.cs" />
+    <Compile Include="Solutions\Solution_08.cs" />
+    <Compile Include="Solutions\Solution_09.cs" />
+    <Compile Include="Solutions\Solution_10.cs" />
+    <Compile Include="Solutions\Solution_11.cs" />
+    <Compile Include="Solutions\Solution_12.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

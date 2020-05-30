@@ -17,7 +17,10 @@ namespace project_euler
                 "[6] Sum Square Difference",
                 "[7] 10001st prime",
                 "[8] Largest product in a series",
-                "[9] Special Pythagorean triplet"
+                "[9] Special Pythagorean triplet",
+                "[10]",
+                "[11]",
+                "[12]"
             };
 
             selectedSolution = 0;
@@ -93,31 +96,40 @@ namespace project_euler
             switch (selectionMade)
             {
                 case 1:
-                    solution = new Solution_1();
+                    solution = new Solution_01();
                     break;
                 case 2:
-                    solution = new Solution_2();
+                    solution = new Solution_02();
                     break;
                 case 3:
-                    solution = new Solution_3();
+                    solution = new Solution_03();
                     break;
                 case 4:
-                    solution = new Solution_4();
+                    solution = new Solution_04();
                     break;
                 case 5:
-                    solution = new Solution_5();
+                    solution = new Solution_05();
                     break;
                 case 6:
-                    solution = new Solution_6();
+                    solution = new Solution_06();
                     break;
                 case 7:
-                    solution = new Solution_7();
+                    solution = new Solution_07();
                     break;
                 case 8:
-                    solution = new Solution_8();
+                    solution = new Solution_08();
                     break;
                 case 9:
-                    solution = new Solution_9();
+                    solution = new Solution_09();
+                    break;
+                case 10:
+                    solution = new Solution_10();
+                    break;
+                case 11:
+                    solution = new Solution_11();
+                    break;
+                case 12:
+                    solution = new Solution_12();
                     break;
                 default:
                     addToOutput("No implementation has been written for this function yet");

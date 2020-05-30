@@ -36,5 +36,16 @@ namespace project_euler.Helper
             }
         }
 
+        public bool math_isSquare(double n)
+        {
+            if (Math.Sqrt(n) % 1 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

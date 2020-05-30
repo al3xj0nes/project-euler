@@ -3,7 +3,7 @@ using project_euler.Helper;
 
 namespace project_euler.Solutions
 {
-    class Solution_3 : Solution
+    class Solution_03 : Solution
     {
         public override string ProblemDefinition =>
             "The prime factors of 13195 are 5, 7, 13 and 29.\r\n" +

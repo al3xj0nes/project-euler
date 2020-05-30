@@ -2,7 +2,7 @@
 
 namespace project_euler.Solutions
 {
-    class Solution_7 : Solution
+    class Solution_07 : Solution
     {
         public override string ProblemDefinition =>
             "By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13.\r\n" +

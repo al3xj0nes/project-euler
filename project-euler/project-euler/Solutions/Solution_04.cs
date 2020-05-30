@@ -1,6 +1,6 @@
 ﻿namespace project_euler.Solutions
 {
-    class Solution_4 : Solution
+    class Solution_04 : Solution
     {
         public override string ProblemDefinition =>
             "A palindromic number reads the same both ways. The largest palindrome made from the product of two 2 - digit numbers is 9009 = 91 × 99.\r\n" +

@@ -2,7 +2,7 @@
 
 namespace project_euler.Solutions
 {
-    public class Solution_6 : Solution
+    public class Solution_06 : Solution
     {
         public override string ProblemDefinition =>
             "The sum of the squares of the first ten natural numbers is,\r\n" +

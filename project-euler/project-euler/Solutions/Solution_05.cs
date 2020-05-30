@@ -1,6 +1,6 @@
 ﻿namespace project_euler.Solutions
 {
-    public class Solution_5 : Solution
+    public class Solution_05 : Solution
     {
         public override string ProblemDefinition =>
             "2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.\r\n" +

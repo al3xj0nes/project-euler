@@ -2,7 +2,7 @@
 
 namespace project_euler.Solutions
 {
-    public class Solution_8 : Solution
+    public class Solution_08 : Solution
     {
         public override string ProblemDefinition =>
             "The four adjacent digits in the 1000-digit number that have the greatest product are 9 × 9 × 8 × 9 = 5832.\r\n" +
