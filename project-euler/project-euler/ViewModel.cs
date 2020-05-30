@@ -18,9 +18,9 @@ namespace project_euler
                 "[7] 10001st prime",
                 "[8] Largest product in a series",
                 "[9] Special Pythagorean triplet",
-                "[10]",
-                "[11]",
-                "[12]"
+                "[10] Summation of primes",
+                "[11] Largest product in a grid",
+                "[12] Highly divisible triangle number"
             };
 
             selectedSolution = 0;
