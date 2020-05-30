@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace project_euler
+namespace project_euler.Helper
 {
     public class Functions
     {

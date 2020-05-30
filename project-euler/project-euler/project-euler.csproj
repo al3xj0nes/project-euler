@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Functions.cs" />
+    <Compile Include="Helper\Functions.cs" />
+    <Compile Include="Helper\Command.cs" />
+    <Compile Include="Helper\ObservableProperty.cs" />
     <Compile Include="Solutions\Solution.cs" />
     <Compile Include="Solutions\Solution_1.cs" />
     <Compile Include="Solutions\Solution_2.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Solutions\Solution_7.cs" />
     <Compile Include="Solutions\Solution_8.cs" />
     <Compile Include="Solutions\Solution_9.cs" />
+    <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

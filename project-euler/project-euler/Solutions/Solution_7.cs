@@ -1,4 +1,6 @@
-﻿namespace project_euler.Solutions
+﻿using project_euler.Helper;
+
+namespace project_euler.Solutions
 {
     class Solution_7 : Solution
     {

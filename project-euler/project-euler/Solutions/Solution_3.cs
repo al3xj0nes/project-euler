@@ -1,4 +1,5 @@
 ﻿using System;
+using project_euler.Helper;
 
 namespace project_euler.Solutions
 {
