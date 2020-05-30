@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace project_euler
 {
@@ -20,9 +21,42 @@ namespace project_euler
     /// </summary>
     public partial class MainWindow : Window
     {
+        BackgroundWorker projectEulerBWorker = new BackgroundWorker();
+        public struct ProgressReport
+        {
+            public int percentageComplete;
+            public string stringToAdd;
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
+            projectEulerBWorker.WorkerReportsProgress = true;
+            projectEulerBWorker.WorkerSupportsCancellation = true;
+            projectEulerBWorker.DoWork += projectEulerBWorker_DoWork;
+            projectEulerBWorker.ProgressChanged += projectEulerBWorker_ProgressChanged;
+            projectEulerBWorker.RunWorkerCompleted += projectEulerBWorker_RunWorkerCompleted;
+
+        }
+
+        void projectEulerBWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ProgressReport newProgressReport;
+            newProgressReport.percentageComplete = 100;
+            newProgressReport.stringToAdd = "my new string";
+            projectEulerBWorker.ReportProgress(newProgressReport.percentageComplete, newProgressReport);
+        }
+        void projectEulerBWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            ProgressReport report = (ProgressReport)e.UserState;
+            pbProgress.Value = e.ProgressPercentage;
+            addToOutput(report.stringToAdd);
+        }
+        void projectEulerBWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pbProgress.Value = 100;
+            addToOutput("bgw-completed");
         }
 
         private void addToOutput(string msg)
@@ -30,9 +64,9 @@ namespace project_euler
             txtOutputDisplay.AppendText(msg + "\r\n");
             txtOutputDisplay.ScrollToEnd();
         }
-
         private void btnRunSolution_Click(object sender, RoutedEventArgs e)
         {
+            pbProgress.Value = 0;
             var watch = System.Diagnostics.Stopwatch.StartNew();
             // Increment selection made as combo box indexes from 0. Solutions index from 1.
             int selectionMade = comboSolutionSelection.SelectedIndex + 1;
@@ -41,7 +75,8 @@ namespace project_euler
             {
                 addToOutput("Loading solution for " + comboSolutionSelection.Text);
             }
-            switch (selectionMade)
+            projectEulerBWorker.RunWorkerAsync(selectionMade);
+            /*switch (selectionMade)
             {
                 case 1:
                     projectEuler_Solution1();
@@ -70,12 +105,21 @@ namespace project_euler
                 case 9:
                     projectEuler_Solution9();
                     break;
+                case 10:
+                    projectEuler_Solution10();
+                    break;
+                case 11:
+                    projectEuler_Solution11();
+                    break;
+                case 12:
+                    projectEuler_Solution12();
+                    break;
                 default:
                     addToOutput("No implementation has been written for this function yet");
                     break;
-            }
-            watch.Stop();
-            addToOutput("Time elapsed: " + watch.ElapsedMilliseconds + "ms");
+            }*/
+            //watch.Stop();
+            //addToOutput("Time elapsed: " + watch.ElapsedMilliseconds + "ms");
         }
 
         private void projectEuler_Solution1()
@@ -334,7 +378,7 @@ namespace project_euler
                 testCalc = 1;
                 for (int sub_index = 0; sub_index < adjacentCount; sub_index++)
                 {
-                   // addToOutput(inputList.Substring(index, adjacentCount));
+                    // addToOutput(inputList.Substring(index, adjacentCount));
                     //addToOutput("[" + index + ":" + sub_index + "] = " + inputList[index + sub_index]);
                     testCalc *= Convert.ToInt64(inputList[index + sub_index].ToString());
                 }
@@ -350,7 +394,243 @@ namespace project_euler
         }
         private void projectEuler_Solution9()
         {
-            ;
+            /* A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
+                        a2 + b2 = c2
+               For example, 32 + 42 = 9 + 16 = 25 = 52.
+               There exists exactly one Pythagorean triplet for which a +b + c = 1000.
+               Find the product abc. */
+            addToOutput("A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,\r\n" +
+                        "a^2 + b^2 = c2\r\n" +
+                        "For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.\r\n" +
+                        "There exists exactly one Pythagorean triplet for which a + b + c = 1000.\r\n" +
+                        "Find the product abc.");
+            for (int a = 1; a <= 500; a++)
+            {
+                for (int b = 1; b <= 500; b++)
+                {
+                    double c_sqrd = Math.Pow(a, 2) + Math.Pow(b, 2);
+                    double c = Math.Sqrt(c_sqrd);
+                    if (math_isSquare(c_sqrd) && a < b && b < c && (a + b + c == 1000))
+                    {
+                        addToOutput("a=" + a + ", b=" + b + ", c=" + c + ". a+b+c=" + (a + b + c));
+                        addToOutput("Resulting in a product of a*b*c=" + (a * b * c));
+                    }
+                }
+            }
+        }
+        private void projectEuler_Solution10()
+        {
+            /* The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+               Find the sum of all the primes below two million. */
+            addToOutput("The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.\r\n" +
+                        "Find the sum of all the primes below two million.\r\n");
+            int maxPrime = 2000000;
+            long sumOfPrimes = 0;
+            for (int index = 1; index <= maxPrime; index++)
+            {
+                if (math_isPrime(index))
+                {
+                    //addToOutput(index.ToString());
+                    sumOfPrimes += index;
+                }
+            }
+            addToOutput("Sum of all primes under " + maxPrime + " = " + sumOfPrimes);
+        }
+        private void projectEuler_Solution11()
+        {
+            /* What is the greatest product of four adjacent numbers in the same direction(up, down, left, right, or diagonally) in the 20×20 grid ?
+               (see https://projecteuler.net/problem=11) */
+            addToOutput("What is the greatest product of four adjacent numbers in the same direction(up, down, left, right, or diagonally) in the 20×20 grid ?\r\n" +
+                        "(see https://projecteuler.net/problem=11) \r\n");
+            int[,] inputArray = new int[20, 20] { { 08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08 },
+                                                  { 49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00 },
+                                                  { 81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 03, 49, 13, 36, 65 },
+                                                  { 52, 70, 95, 23, 04, 60, 11, 42, 69, 24, 68, 56, 01, 32, 56, 71, 37, 02, 36, 91 },
+                                                  { 22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80 },
+                                                  { 24, 47, 32, 60, 99, 03, 45, 02, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50 },
+                                                  { 32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70 },
+                                                  { 67, 26, 20, 68, 02, 62, 12, 20, 95, 63, 94, 39, 63, 08, 40, 91, 66, 49, 94, 21 },
+                                                  { 24, 55, 58, 05, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72 },
+                                                  { 21, 36, 23, 09, 75, 00, 76, 44, 20, 45, 35, 14, 00, 61, 33, 97, 34, 31, 33, 95 },
+                                                  { 78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 03, 80, 04, 62, 16, 14, 09, 53, 56, 92 },
+                                                  { 16, 39, 05, 42, 96, 35, 31, 47, 55, 58, 88, 24, 00, 17, 54, 24, 36, 29, 85, 57 },
+                                                  { 86, 56, 00, 48, 35, 71, 89, 07, 05, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58 },
+                                                  { 19, 80, 81, 68, 05, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 04, 89, 55, 40 },
+                                                  { 04, 52, 08, 83, 97, 35, 99, 16, 07, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66 },
+                                                  { 88, 36, 68, 87, 57, 62, 20, 72, 03, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69 },
+                                                  { 04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 08, 46, 29, 32, 40, 62, 76, 36 },
+                                                  { 20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 04, 36, 16 },
+                                                  { 20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 05, 54 },
+                                                  { 01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48 } };
+            // index i goes down
+            // index j goes accross.
+            int tempCalc = -1;
+            int largestProduct = -1;
+            int[] largestProductNode = new int[2];
+            string largestProductType = "";
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j =0; j < 20; j++)
+                {
+                    // for each node: check up, down, left, right, diag NE, diag SE, diag SW, diag NW
+                    // it may not always be possible to check each direction near the boundaries -- ignore these sub-cases
+                    // there will be some overlap in checking e.g. [0,0] Right will return the same value as [0,3] Left.
+                    //addToOutput("node[" + i + "][" + j + "]=" + inputArray[i, j]);
+
+                    // LEFT
+                    if (j >= 3) // j Must be >=3 to be far enough from left edge.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i, j - 1] * inputArray[i, j - 2] * inputArray[i, j - 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "LEFT";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // RIGHT
+                    if (j <= 16) // j Must be <= 16 to be far enough from left edge.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i, j + 1] * inputArray[i, j + 2] * inputArray[i, j + 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "RIGHT";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // UP
+                    if (i >= 3) // i Must be >=3 to be far enough from top edge.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i - 1, j] * inputArray[i - 2, j] * inputArray[i - 3, j];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "UP";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // DOWN
+                    if (i <= 16) // i Must be <= 16 to be far enough from bottom edge.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i + 1, j] * inputArray[i + 2, j] * inputArray[i + 3, j];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "DOWN";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // NW Diag
+                    if (i>=3 && j>=3) // i & j must be >=3 to be far enough from the NW corner.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i - 1, j - 1] * inputArray[i - 2, j - 2] * inputArray[i - 3, j - 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "NW Diag";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // SW Diag
+                    if (i <= 16 && j >= 3) // i & j must be <=16, >=3 respectively to be far enough from the SW corner.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i + 1, j - 1] * inputArray[i + 2, j - 2] * inputArray[i + 3, j - 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "SW Diag";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // NE Diag
+                    if (i >= 3 && j <= 16) // i & j must be >=3, <=16 respectively to be far enough from the NE corner.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i - 1, j + 1] * inputArray[i - 2, j + 2] * inputArray[i - 3, j + 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "NE Diag";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                    // SE Diag
+                    if (i <= 16 && j <= 16) // i & j must be <=16 to be far enough from the SE corner.
+                    {
+                        tempCalc = inputArray[i, j] * inputArray[i + 1, j + 1] * inputArray[i + 2, j + 2] * inputArray[i + 3, j + 3];
+                        if (tempCalc > largestProduct)
+                        {
+                            largestProductNode[0] = i;
+                            largestProductNode[1] = j;
+                            largestProductType = "SE Diag";
+                            largestProduct = tempCalc;
+                        }
+                    }
+                }
+            }
+            addToOutput("Largest Product = " + largestProduct);
+            addToOutput("Found at node: [" + largestProductNode[0] + ", " + largestProductNode[1] + "] with direction type = " + largestProductType);
+        }
+        private void projectEuler_Solution12()
+        {
+            /* The sequence of triangle numbers is generated by adding the natural numbers.
+               So the 7th triangle number would be 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28.
+               The first ten terms would be: 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
+               Let us list the factors of the first seven triangle numbers:
+                        1: 1
+                        3: 1,3 
+                        6: 1,2,3,6
+                       10: 1,2,5,10
+                       15: 1,3,5,15
+                       21: 1,3,7,21
+                       28: 1,2,4,7,14,28
+               We can see that 28 is the first triangle number to have over five divisors.
+               What is the value of the first triangle number to have over five hundred divisors? */
+            addToOutput("The sequence of triangle numbers is generated by adding the natural numbers. So the 7th triangle number would be 1 + 2 + 3 + 4 + 5 + 6 + 7 = 28.The first ten terms would be:\r\n" +
+                        "        1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...\r\n" +
+                        "Let us list the factors of the first seven triangle numbers:\r\n" +
+                        "        1: 1\r\n" +
+                        "        3: 1, 3\r\n" +
+                        "        6: 1, 2, 3, 6\r\n" +
+                        "       10: 1, 2, 5, 10\r\n" +
+                        "       15: 1, 3, 5, 15\r\n" +
+                        "       21: 1, 3, 7, 21\r\n" +
+                        "       28: 1, 2, 4, 7, 14, 28\r\n" +
+                        "We can see that 28 is the first triangle number to have over five divisors.\r\n" +
+                        "What is the value of the first triangle number to have over five hundred divisors ?\r\n ");
+
+            int triangleNumberMax = 1000000;
+            for (int index = 1; index <= triangleNumberMax; index++)
+            {
+                // calculate the triangle number
+                int triangleCalc = 0;
+                for (int index_t = 1; index_t <= index; index_t++)
+                {
+                    triangleCalc += index_t;
+                }
+
+                // calculate the number of divisors
+                int numberOfDivisors = 1; // start with 1 to include the triangle number itself as a divisor, this does not need to be calculated.
+                for (int divisor = 1; divisor <= triangleCalc/2; divisor++)
+                {
+                    if (triangleCalc % divisor == 0)
+                    {
+                        //addToOutput("Divisor = " + divisor);
+                        numberOfDivisors++;
+                    }
+                }
+                if (numberOfDivisors >= 500)
+                {
+                    addToOutput("Triangle (" + index + ") = " + triangleCalc + " has " + numberOfDivisors + " divisors");
+                }
+            }
         }
 
         /* Library functions that should be moved to a seperate file eventually */
@@ -360,6 +640,10 @@ namespace project_euler
             if (n == 2 || n == 3)
             {
                 return true;
+            }
+            else if (n <= 1)
+            {
+                return false;
             }
             else if (n % 2 == 0)
             {
@@ -384,6 +668,22 @@ namespace project_euler
                 }
                 return true;
             }
+        }
+        private bool math_isSquare(double n)
+        {
+            if (Math.Sqrt(n) % 1 == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            projectEulerBWorker.CancelAsync();
         }
     }
 }
