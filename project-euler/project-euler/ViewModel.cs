@@ -1,8 +1,5 @@
-﻿using System;
-using project_euler.Solutions;
+﻿using project_euler.Solutions;
 using project_euler.Helper;
-using System.Runtime.CompilerServices;
-using System.Security;
 
 namespace project_euler
 {
