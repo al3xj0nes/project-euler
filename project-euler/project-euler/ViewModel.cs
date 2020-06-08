@@ -27,6 +27,11 @@ namespace project_euler
 
             RunSolution = new Command(Run,
                 () => { return true; });
+
+            CancelSolution = new Command(Cancel,
+                () => { return true; });
+
+            progressVisibility = false;
         }
 
         private string[] _solutions;
@@ -139,6 +144,27 @@ namespace project_euler
             addToOutput(solution.Answer);
             watch.Stop();
             addToOutput("Time elapsed: " + watch.ElapsedMilliseconds + "ms");
+        }
+
+        public Command CancelSolution { get; private set; }
+
+        private void Cancel()
+        {
+        }
+
+        private bool _progressVisibility;
+
+        public bool progressVisibility
+        {
+            get { return _progressVisibility; }
+            set
+            {
+                if (_progressVisibility != value)
+                {
+                    _progressVisibility = value;
+                    OnPropertyChanged(nameof(progressVisibility));
+                }
+            }
         }
 
         private void addToOutput(string msg)
