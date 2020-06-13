@@ -42,7 +42,7 @@
                 VerticalAlignment="Stretch"
                 Margin="10,10,10,10"
                 ItemsSource="{Binding solutions}"
-                SelectedIndex="{Binding selectedSolution}">
+                SelectedIndex="{Binding selectedSolutionIndex}">
             </ComboBox>
             <Button
                 x:Name="btnRunSolution"
@@ -71,6 +71,7 @@
                 VerticalAlignment="Stretch"
                 Margin="10,10,10,10"
                 Height="20"
+                Value="{Binding progressPercent}"
                 Visibility="{Binding Path=progressVisibility, Converter={StaticResource VisibleIfTrueConverter}}" />
         </StackPanel>
         <TextBox

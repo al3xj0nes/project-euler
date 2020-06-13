@@ -1,4 +1,8 @@
-﻿namespace project_euler.Solutions
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace project_euler.Solutions
 {
     public class Solution_01 : Solution
     {
@@ -7,21 +11,52 @@
             "The sum of these multiples is 23.\r\n" +
             "Find the sum of all the multiples of 3 or 5 below 1000.";
 
-        public override string Answer =>
-            $"Total Sum = { totalSum() }";
+        public override async Task GetAnswer(CancellationToken token, IProgress<int> progress = null)
+        {
+            Task task = Task.Run(() => totalSum(token, progress));
+            await task;
+        }
 
-        private int totalSum()
+        private void totalSum(CancellationToken token, IProgress<int> progress = null)
         {
             int totalSum = 0;
-            for (int index = 0; index < 1000; index++)
+            int upperLimit = 1000;
+            int previousPercent = 0;
+
+            for (int index = 0; index < upperLimit; index++)
             {
+                // Stop if cancelled
+                if (token.IsCancellationRequested)
+                {
+                    Answer = "\r\nProblem cancelled";
+                    return;
+                }
+
+                // Report progress if appropriate
+                if (progress != null)
+                {
+                    double percent = 100 * (double)index / upperLimit;
+                    int nearestPercent = (int)Math.Floor(percent);
+                    if (nearestPercent != previousPercent)
+                    {
+                        progress.Report(nearestPercent);
+                    }
+                    previousPercent = nearestPercent;
+                }
+
+                // This index value divides into 3 or 5 without a remainder, therefore is a mutliple of 3 or 5, add it to total.
                 if (index % 3 == 0 || index % 5 == 0)
                 {
-                    // This index value divides into 3 or 5 without a remainder, therefore is a mutliple of 3 or 5, add it to total.
                     totalSum += index;
                 }
             }
-            return totalSum;
+
+            // Report progress complete
+            if (progress != null)
+            {
+                progress.Report(100);
+            }
+            Answer = $"Total Sum = { totalSum }";
         }
     }
 }

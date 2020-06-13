@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace project_euler.Helper
+namespace project_euler.Helpers
 {
     public class ObservableProperty : INotifyPropertyChanged
     {

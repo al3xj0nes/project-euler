@@ -1,15 +1,22 @@
-﻿namespace project_euler.Solutions
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace project_euler.Solutions
 {
     class Solution_11 : Solution
     {
         public override string ProblemDefinition =>
             "What is the greatest product of four adjacent numbers in the same direction(up, down, left, right, or diagonally) in the 20×20 grid ?\r\n" +
-            "(see https://projecteuler.net/problem=11) \r\n";
+            "(see https://projecteuler.net/problem=11)";
 
-        public override string Answer =>
-            $"Greatest product is {greatestProduct()}";
+        public override async Task GetAnswer(CancellationToken token, IProgress<int> progress = null)
+        {
+            Task task = Task.Run(() => greatestProduct(token, progress));
+            await task;
+        }
 
-        private int greatestProduct()
+        private void greatestProduct(CancellationToken token, IProgress<int> progress = null)
         {
             int[,] inputArray = new int[20, 20] { { 08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08 },
                                                   { 49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 04, 56, 62, 00 },
@@ -39,9 +46,29 @@
             int greatestProduct = -1;
             int[] greatestProductNode = new int[2];
             string greatestProductType = "";
+            int previousPercent = 0;
             
             for (int i = 0; i < 20; i++)
             {
+                // Stop if cancelled
+                if (token.IsCancellationRequested)
+                {
+                    Answer = "\r\nProblem cancelled";
+                    return;
+                }
+
+                // Report progress if appropriate
+                if (progress != null)
+                {
+                    double percent = 100 * (double)i / 20;
+                    int nearestPercent = (int)Math.Floor(percent);
+                    if (nearestPercent != previousPercent)
+                    {
+                        progress.Report(nearestPercent);
+                    }
+                    previousPercent = nearestPercent;
+                }
+
                 for (int j = 0; j < 20; j++)
                 {
                     // for each node: check up, down, left, right, diag NE, diag SE, diag SW, diag NW
@@ -147,9 +174,8 @@
                     }
                 }
             }
-            return greatestProduct;
-
-            // addToOutput("Found at node: [" + greatestProductNode[0] + ", " + greatestProductNode[1] + "] with direction type = " + greatestProductType);
+            Answer = $"Greatest product is {greatestProduct}";
+            // answer += $"Found at node: [{greatestProductNode[0]}, {greatestProductNode[1]}] with direction type = {greatestProductType}";
         }
     }
 

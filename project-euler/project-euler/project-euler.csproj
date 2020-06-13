@@ -58,9 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helper\Functions.cs" />
-    <Compile Include="Helper\Command.cs" />
-    <Compile Include="Helper\ObservableProperty.cs" />
+    <Compile Include="Helpers\Command.cs" />
+    <Compile Include="Helpers\Functions.cs" />
+    <Compile Include="Helpers\ObservableProperty.cs" />
     <Compile Include="Solutions\Solution.cs" />
     <Compile Include="Solutions\Solution_01.cs" />
     <Compile Include="Solutions\Solution_02.cs" />
